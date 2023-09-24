@@ -3,7 +3,8 @@ let startTime = 0;
 let interval;
 let lapCounter = 1;
 let showLapTime = false;
-let currentTime = 0;
+let currentTimeDiff = 0;
+let labTimeDiff = 0;
 let beforeLapTime = 0;
 
 const display = document.getElementById('display');
@@ -28,11 +29,11 @@ function formatLapTime(ms) {
 }
 
 function updateDisplay() {
-    currentTime = isRunning ? Date.now() - startTime : startTime;
+    currentTimeDiff = Date.now() - startTime;
     if (showLapTime) {
-        displayTemp.textContent = formatTime(currentTime);
+        displayTemp.textContent = formatTime(currentTimeDiff);
     } else {
-        display.textContent = formatTime(currentTime);
+        display.textContent = formatTime(currentTimeDiff);
     }
 }
 
@@ -46,7 +47,8 @@ function toggleTimer() {
             startTime = Date.now();
             beforeLapTime = startTime;
         } else {
-            startTime = Date.now() - currentTime;
+            startTime = Date.now() - currentTimeDiff;
+            beforeLapTime = startTime + labTimeDiff;
         }
         interval = setInterval(updateDisplay, 50);
         startStopButton.textContent = 'Stop';
@@ -71,13 +73,14 @@ function lapTimer() {
         const currentTime = Date.now();
         const lapTime = currentTime - startTime;
         const lapItem = document.createElement('div');
-        lapItem.textContent = `Lap ${lapCounter}: ${formatTime(lapTime)}`;
+        lapItem.textContent = `#${lapCounter}: ${formatTime(lapTime)}`;
         lapsList.appendChild(lapItem);
         lapCounter++;
         showLapTime = true;
         // display.textContent = formatTime(lapTime);
         display.textContent = formatLapTime(currentTime - beforeLapTime);
         beforeLapTime = currentTime;
+        labTimeDiff = lapTime;
         setTimeout(function () { showLapTime = false; displayTemp.textContent = ''; }, 5000);
     }
 }
