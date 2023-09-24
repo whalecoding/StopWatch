@@ -6,6 +6,7 @@ let showLapTime = false;
 let currentTime = 0;
 
 const display = document.getElementById('display');
+const displayTemp = document.getElementById('displayTemp');
 const startStopButton = document.getElementById('startStop');
 const resetButton = document.getElementById('reset');
 const lapButton = document.getElementById('lap');
@@ -20,7 +21,10 @@ function formatTime(ms) {
 }
 
 function updateDisplay() {
-    if (!showLapTime) {
+    if (showLapTime) {
+        currentTime = isRunning ? Date.now() - startTime : startTime;
+        displayTemp.textContent = formatTime(currentTime);
+    } else {
         currentTime = isRunning ? Date.now() - startTime : startTime;
         display.textContent = formatTime(currentTime);
     }
@@ -65,7 +69,7 @@ function lapTimer() {
         lapCounter++;
         showLapTime = true;
         display.textContent = formatTime(lapTime);
-        setTimeout(function () { showLapTime = false }, 5000);
+        setTimeout(function () { showLapTime = false; displayTemp.textContent = ''; }, 5000);
     }
 }
 
