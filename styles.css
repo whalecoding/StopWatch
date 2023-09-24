@@ -23,3 +23,18 @@ button {
     padding: 10px 20px;
     cursor: pointer;
 }
+
+body {
+    --background-color-light: #fff;
+    --text-color-light: #000;
+    --background-color-dark: #333;
+    --text-color-dark: #fff;
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+    /* Existing CSS styles here */
+}
+
+.dark-mode {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+}
