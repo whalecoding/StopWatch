@@ -14,6 +14,10 @@ body {
     font-size: 3em;
 }
 
+.smallTime {
+    font-size: 0.1em;
+}
+
 .controls {
     margin-top: 20px;
 }
