@@ -10,7 +10,7 @@ const display = document.getElementById('display');
 const displayTemp = document.getElementById('displayTemp');
 const startStopButton = document.getElementById('startStop');
 const resetButton = document.getElementById('reset');
-const lapButton = document.getElementById('lap');
+// const lapButton = document.getElementById('lap');
 const lapsList = document.getElementById('lapsList');
 
 function formatTime(ms) {
@@ -40,7 +40,7 @@ function toggleTimer() {
     if (isRunning) {
         clearInterval(interval);
         startStopButton.textContent = 'Start';
-        lapButton.textContent = 'Lap';
+        // lapButton.textContent = 'Lap';
     } else {
         if (startTime == 0) {
             startTime = Date.now();
@@ -50,7 +50,7 @@ function toggleTimer() {
         beforeLapTime = startTime;
         interval = setInterval(updateDisplay, 50);
         startStopButton.textContent = 'Stop';
-        lapButton.textContent = 'Lap';
+        // lapButton.textContent = 'Lap';
     }
     isRunning = !isRunning;
 }
@@ -61,7 +61,7 @@ function resetTimer() {
     startTime = 0;
     display.textContent = '00:00:00.000';
     startStopButton.textContent = 'Start';
-    lapButton.textContent = 'Lap';
+    // lapButton.textContent = 'Lap';
     lapsList.innerHTML = '';
     lapCounter = 1;
 }
@@ -84,7 +84,7 @@ function lapTimer() {
 
 startStopButton.addEventListener('click', toggleTimer);
 resetButton.addEventListener('click', resetTimer);
-lapButton.addEventListener('click', lapTimer);
+// lapButton.addEventListener('click', lapTimer);
 
 document.body.addEventListener('click', lapTimer);
 
