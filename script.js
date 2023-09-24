@@ -60,3 +60,19 @@ function lapTimer() {
 startStopButton.addEventListener('click', toggleTimer);
 resetButton.addEventListener('click', resetTimer);
 lapButton.addEventListener('click', lapTimer);
+
+
+// dark mode
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    // Toggle the text on the button
+    if (body.classList.contains('dark-mode')) {
+        themeToggle.textContent = 'Light Mode';
+    } else {
+        themeToggle.textContent = 'Dark Mode';
+    }
+});
+
