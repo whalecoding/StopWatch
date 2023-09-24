@@ -55,7 +55,6 @@ function toggleTimer() {
             startTime = Date.now();
             beforeLapTime = startTime;
         } else {
-            console.log(startTimeDiff, Date.now() - startTimeDiff);
             startTime = Date.now() - startTimeDiff;
             beforeLapTime = startTime + labTimeDiff;
         }
