@@ -46,3 +46,15 @@ body {
     background-color: var(--background-color-dark);
     color: var(--text-color-dark);
 }
+
+footer {
+    position: absolute;
+    bottom: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
