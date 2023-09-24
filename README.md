@@ -2,8 +2,8 @@
 
 [StopWatch](https://whalecoding.github.io/StopWatch/)
 
-Simple StopWatch to display lap difference times
-
+Simple StopWatch to display lap difference times.     
+Click anywhere on the screen to record your lap.
 
 <img width="300" alt="스크린샷 2023-09-24 오후 2 46 39" src="https://github.com/whalecoding/StopWatch/assets/89170523/1d6b43cb-4dd5-47b1-ad6e-c72a8c8913e9">
 
