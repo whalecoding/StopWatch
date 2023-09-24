@@ -90,3 +90,21 @@ header div {
     overflow-y: auto; 
     padding: 10px; 
 }
+
+.full-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: #000;
+    color: #fff;  */
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+    z-index: 9999; /* Optional: You can adjust the z-index to control stacking order */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 11em;
+}
