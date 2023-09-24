@@ -64,7 +64,7 @@ function lapTimer() {
         const currentTime = Date.now();
         const lapTime = currentTime - startTime;
         const lapItem = document.createElement('div');
-        lapItem.textContent = `Lap ${lapCounter}: ${formatTime(lapTime)}`;
+        lapItem.textContent = `#${lapCounter}: ${formatTime(lapTime)}`;
         lapsList.appendChild(lapItem);
         lapCounter++;
         showLapTime = true;
