@@ -32,6 +32,16 @@ function formatLapTime(ms) {
     const milliseconds = ms % 1000;
     return `${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
 }
+function formatLapTime(ms) {
+    const seconds = Math.floor((ms % 60000) / 1000);
+    const milliseconds = ms % 1000;
+    return `${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
+}
+function formatLapTimeShort(ms) {
+    const seconds = Math.floor((ms % 60000) / 1000);
+    const milliseconds = (ms % 1000) / 100;
+    return `${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(1, '0')}`;
+}
 
 function updateDisplay() {
     // currentTimeDiff = Date.now() - startTime;
@@ -89,7 +99,7 @@ function lapTimer() {
         lapCounter++;
         showLapTime = true;
         // display.textContent = formatTime(lapTime);
-        display.textContent = formatLapTime(currentTime - beforeLapTime);
+        display.textContent = formatLapTimeShort(currentTime - beforeLapTime);
         beforeLapTime = currentTime;
         labTimeDiff = lapTime;
         setTimeout(function () { showLapTime = false; displayTemp.textContent = ''; offFullScreen(); }, 5000);
