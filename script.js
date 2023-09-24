@@ -1,15 +1,15 @@
 let isRunning = false;
 let startTime = 0;
-let interval: NodeJS.Timeout;
+let interval;
 let lapCounter = 1;
 
-const display = document.getElementById('display') as HTMLDivElement;
-const startStopButton = document.getElementById('startStop') as HTMLButtonElement;
-const resetButton = document.getElementById('reset') as HTMLButtonElement;
-const lapButton = document.getElementById('lap') as HTMLButtonElement;
-const lapsList = document.getElementById('lapsList') as HTMLDivElement;
+const display = document.getElementById('display');
+const startStopButton = document.getElementById('startStop');
+const resetButton = document.getElementById('reset');
+const lapButton = document.getElementById('lap');
+const lapsList = document.getElementById('lapsList');
 
-function formatTime(ms: number): string {
+function formatTime(ms) {
     const hours = Math.floor(ms / 3600000);
     const minutes = Math.floor((ms % 3600000) / 60000);
     const seconds = Math.floor((ms % 60000) / 1000);
