@@ -3,11 +3,19 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    margin: 0 auto;
+    padding: 20px; 
+    --background-color-light: #fff;
+    --text-color-light: #000;
+    --background-color-dark: #333;
+    --text-color-dark: #fff;
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
 }
 
 .stopwatch {
     text-align: center;
+    width: 500px;
 }
 
 .time {
@@ -28,16 +36,6 @@ button {
     cursor: pointer;
 }
 
-body {
-    --background-color-light: #fff;
-    --text-color-light: #000;
-    --background-color-dark: #333;
-    --text-color-dark: #fff;
-    background-color: var(--background-color-light);
-    color: var(--text-color-light);
-    /* Existing CSS styles here */
-}
-
 #themeToggle {
     position: absolute; /* Position the button absolutely within the body */
     top: 10px; /* Adjust the top position as needed */
@@ -53,8 +51,8 @@ body {
 
 footer {
     position: absolute;
-    bottom: 5px;
-    padding: 5px;
+    bottom: 3px;
+    padding: 3px;
     text-align: center;
 }
 
@@ -82,4 +80,13 @@ header img {
 
 header div {
     font-size: 0.1em;
+}
+
+.laps {
+    width: 50;
+    /* background-color: #f7f7f7;  */
+    border: 1px solid #ccc; 
+    max-height: 100px; 
+    overflow-y: auto; 
+    padding: 10px; 
 }
