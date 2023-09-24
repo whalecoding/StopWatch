@@ -77,7 +77,8 @@ function resetTimer() {
 }
 
 function lapTimer() {
-    if (isRunning) {
+    if (isRunning && !showLapTime) {
+        onFullScreen();
         const currentTime = Date.now();
         const lapTime = currentTime - startTime;
         // startTime = currentTime;
@@ -91,8 +92,18 @@ function lapTimer() {
         display.textContent = formatLapTime(currentTime - beforeLapTime);
         beforeLapTime = currentTime;
         labTimeDiff = lapTime;
-        setTimeout(function () { showLapTime = false; displayTemp.textContent = ''; }, 5000);
+        setTimeout(function () { showLapTime = false; displayTemp.textContent = ''; offFullScreen(); }, 5000);
     }
+}
+
+function onFullScreen() {
+    display.classList.add('full-screen');
+    document.documentElement.style.overflow = 'hidden'; // Hide scrollbar
+}
+
+function offFullScreen() {
+    display.classList.remove('full-screen');
+    document.documentElement.style.overflow = ''; // Restore scrollbar
 }
 
 startStopButton.addEventListener('click', toggleTimer);
