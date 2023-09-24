@@ -108,3 +108,8 @@ header div {
     align-items: center;
     font-size: 30vw;
 }
+
+.dark-mode {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+}
