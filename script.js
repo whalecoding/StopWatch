@@ -2,6 +2,8 @@ let isRunning = false;
 let startTime = 0;
 let interval;
 let lapCounter = 1;
+let showLapTime = false;
+let currentTime = 0;
 
 const display = document.getElementById('display');
 const startStopButton = document.getElementById('startStop');
@@ -13,12 +15,15 @@ function formatTime(ms) {
     const hours = Math.floor(ms / 3600000);
     const minutes = Math.floor((ms % 3600000) / 60000);
     const seconds = Math.floor((ms % 60000) / 1000);
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    const milliseconds = ms % 1000;
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
 }
 
 function updateDisplay() {
-    const currentTime = isRunning ? Date.now() - startTime : startTime;
-    display.textContent = formatTime(currentTime);
+    if (!showLapTime) {
+        currentTime = isRunning ? Date.now() - startTime : startTime;
+        display.textContent = formatTime(currentTime);
+    }
 }
 
 function toggleTimer() {
@@ -27,8 +32,12 @@ function toggleTimer() {
         startStopButton.textContent = 'Start';
         lapButton.textContent = 'Lap';
     } else {
-        startTime = Date.now() - (startTime - Date.now());
-        interval = setInterval(updateDisplay, 1000);
+        if (startTime == 0) {
+            startTime = Date.now();
+        } else {
+            startTime = Date.now() - currentTime;
+        }
+        interval = setInterval(updateDisplay, 50);
         startStopButton.textContent = 'Stop';
         lapButton.textContent = 'Lap';
     }
@@ -39,7 +48,7 @@ function resetTimer() {
     clearInterval(interval);
     isRunning = false;
     startTime = 0;
-    display.textContent = '00:00:00';
+    display.textContent = '00:00:00.000';
     startStopButton.textContent = 'Start';
     lapButton.textContent = 'Lap';
     lapsList.innerHTML = '';
@@ -54,6 +63,9 @@ function lapTimer() {
         lapItem.textContent = `Lap ${lapCounter}: ${formatTime(lapTime)}`;
         lapsList.appendChild(lapItem);
         lapCounter++;
+        showLapTime = true;
+        display.textContent = formatTime(lapTime);
+        setTimeout(function () { showLapTime = false }, 5000);
     }
 }
 
