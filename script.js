@@ -4,6 +4,7 @@ let interval;
 let lapCounter = 1;
 let showLapTime = false;
 let currentTimeDiff = 0;
+let startTimeDiff = 0;
 let labTimeDiff = 0;
 let beforeLapTime = 0;
 
@@ -13,6 +14,10 @@ const startStopButton = document.getElementById('startStop');
 const resetButton = document.getElementById('reset');
 // const lapButton = document.getElementById('lap');
 const lapsList = document.getElementById('lapsList');
+
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+const copyLapsButton = document.getElementById('copyLaps');
 
 function formatTime(ms) {
     const hours = Math.floor(ms / 3600000);
@@ -29,7 +34,9 @@ function formatLapTime(ms) {
 }
 
 function updateDisplay() {
-    currentTimeDiff = Date.now() - startTime;
+    // currentTimeDiff = Date.now() - startTime;
+    currentTimeDiff = Date.now() - beforeLapTime;
+    startTimeDiff = Date.now() - startTime;
     if (showLapTime) {
         displayTemp.textContent = formatTime(currentTimeDiff);
     } else {
@@ -41,13 +48,15 @@ function toggleTimer() {
     if (isRunning) {
         clearInterval(interval);
         startStopButton.textContent = 'Start';
+        display.textContent = formatTime(Date.now() - startTime);
         // lapButton.textContent = 'Lap';
     } else {
         if (startTime == 0) {
             startTime = Date.now();
             beforeLapTime = startTime;
         } else {
-            startTime = Date.now() - currentTimeDiff;
+            console.log(startTimeDiff, Date.now() - startTimeDiff);
+            startTime = Date.now() - startTimeDiff;
             beforeLapTime = startTime + labTimeDiff;
         }
         interval = setInterval(updateDisplay, 50);
@@ -72,9 +81,9 @@ function lapTimer() {
     if (isRunning) {
         const currentTime = Date.now();
         const lapTime = currentTime - startTime;
-        startTime = currentTime;
+        // startTime = currentTime;
         const lapItem = document.createElement('div');
-        lapItem.textContent = `#${lapCounter}: ${formatLapTime(currentTime - beforeLapTime)}`;
+        lapItem.textContent = `#${lapCounter}: ${formatLapTime(currentTime - beforeLapTime)} (${formatTime(lapTime)})\n`;
         // lapItem.textContent = `#${lapCounter}: ${formatTime(lapTime)}`;
         lapsList.appendChild(lapItem);
         lapCounter++;
@@ -91,10 +100,7 @@ startStopButton.addEventListener('click', toggleTimer);
 resetButton.addEventListener('click', resetTimer);
 // lapButton.addEventListener('click', lapTimer);
 
-
 // dark mode
-const themeToggle = document.getElementById('themeToggle');
-const body = document.body;
 
 themeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
@@ -106,9 +112,25 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
+copyLapsButton.addEventListener('click', () => {
+    const lapsText = lapsList.textContent;
+
+    const tempTextArea = document.createElement('textarea');
+    tempTextArea.value = lapsText;
+
+    document.body.appendChild(tempTextArea);
+
+    tempTextArea.select();
+    document.execCommand('copy');
+
+    document.body.removeChild(tempTextArea);
+
+    alert('Lap times copied to clipboard!');
+});
+
 document.body.addEventListener('click', (event) => {
     const clickedElement = event.target;
-    if (clickedElement !== startStopButton && clickedElement !== resetButton && clickedElement !== themeToggle) {
+    if (clickedElement !== startStopButton && clickedElement !== resetButton && clickedElement !== themeToggle && clickedElement !== copyLapsButton) {
         lapTimer();
     }
 });
