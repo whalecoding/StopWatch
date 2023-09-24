@@ -1,10 +1,13 @@
 let isRunning = false;
 let startTime = 0;
 let interval: NodeJS.Timeout;
+let lapCounter = 1;
 
 const display = document.getElementById('display') as HTMLDivElement;
 const startStopButton = document.getElementById('startStop') as HTMLButtonElement;
 const resetButton = document.getElementById('reset') as HTMLButtonElement;
+const lapButton = document.getElementById('lap') as HTMLButtonElement;
+const lapsList = document.getElementById('lapsList') as HTMLDivElement;
 
 function formatTime(ms: number): string {
     const hours = Math.floor(ms / 3600000);
@@ -22,10 +25,12 @@ function toggleTimer() {
     if (isRunning) {
         clearInterval(interval);
         startStopButton.textContent = 'Start';
+        lapButton.textContent = 'Lap';
     } else {
         startTime = Date.now() - (startTime - Date.now());
         interval = setInterval(updateDisplay, 1000);
         startStopButton.textContent = 'Stop';
+        lapButton.textContent = 'Lap';
     }
     isRunning = !isRunning;
 }
@@ -36,7 +41,22 @@ function resetTimer() {
     startTime = 0;
     display.textContent = '00:00:00';
     startStopButton.textContent = 'Start';
+    lapButton.textContent = 'Lap';
+    lapsList.innerHTML = '';
+    lapCounter = 1;
+}
+
+function lapTimer() {
+    if (isRunning) {
+        const currentTime = Date.now();
+        const lapTime = currentTime - startTime;
+        const lapItem = document.createElement('div');
+        lapItem.textContent = `Lap ${lapCounter}: ${formatTime(lapTime)}`;
+        lapsList.appendChild(lapItem);
+        lapCounter++;
+    }
 }
 
 startStopButton.addEventListener('click', toggleTimer);
 resetButton.addEventListener('click', resetTimer);
+lapButton.addEventListener('click', lapTimer);
