@@ -91,12 +91,6 @@ startStopButton.addEventListener('click', toggleTimer);
 resetButton.addEventListener('click', resetTimer);
 // lapButton.addEventListener('click', lapTimer);
 
-document.body.addEventListener('click', (event) => {
-    const clickedElement = event.target;
-    if (clickedElement !== startStopButton && clickedElement !== resetButton) {
-        lapTimer();
-    }
-});
 
 // dark mode
 const themeToggle = document.getElementById('themeToggle');
@@ -112,3 +106,9 @@ themeToggle.addEventListener('click', () => {
     }
 });
 
+document.body.addEventListener('click', (event) => {
+    const clickedElement = event.target;
+    if (clickedElement !== startStopButton && clickedElement !== resetButton && clickedElement !== themeToggle) {
+        lapTimer();
+    }
+});
