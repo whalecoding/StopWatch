@@ -39,7 +39,7 @@ function formatLapTime(ms) {
 }
 function formatLapTimeShort(ms) {
     const seconds = Math.floor((ms % 60000) / 1000);
-    const milliseconds = (ms % 1000) / 100;
+    const milliseconds = Math.floor((ms % 1000) / 100);
     return `${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(1, '0')}`;
 }
 
