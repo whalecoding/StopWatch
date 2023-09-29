@@ -59,7 +59,15 @@ function toggleTimer() {
         clearInterval(interval);
         startStopButton.textContent = 'Start';
         display.textContent = formatTime(Date.now() - startTime);
-        // lapButton.textContent = 'Lap';
+        
+        const currentTime = Date.now();
+        const lapTime = currentTime - startTime;
+        const lapItem = document.createElement('div');
+        lapItem.textContent = `#${lapCounter}: ${formatLapTime(currentTime - beforeLapTime)} (${formatTime(lapTime)})\n`;
+        lapsList.appendChild(lapItem);
+        lapCounter++;
+        beforeLapTime = currentTime;
+        labTimeDiff = lapTime;
     } else {
         if (startTime == 0) {
             startTime = Date.now();
